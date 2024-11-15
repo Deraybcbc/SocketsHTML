@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 
     // Escuchar los mensajes enviados desde el cliente
     socket.on('messageHTML', (msg) => {
-        console.log('Message recibido: ' + msg);
+        console.log('Message recibido: ', msg);
 
         // Emitir el mensaje a todos los clientes conectados
         io.emit('messageBack', msg);

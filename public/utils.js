@@ -7,23 +7,21 @@ let messageInput
 
 function init() {
     btnEnviar = document.querySelector('#btnEnviar');
+    messageInput = document.querySelector('#messageInput');
 
-    socket.on('connect', () => {
-        console.log("conectado al servidor");
-    })
-
-    socket.on('disconnect', () => {
-        console.log('Desconectado del servidor');
-    });
 }
 
 function enviarMessage() {
     btnEnviar.addEventListener('click', function () {
+
+        event.preventDefault();  // Prevenir el comportamiento por defecto del formulario (recargar la página)
+
         console.log("Hola");
 
-        // messageInput = document.querySelector('#messages');
-        // socket.emit('messageHTML', messageInput);
-        // messageInput.value = '';
+        console.log("FRONT: ",messageInput.value);
+        
+        socket.emit('messageHTML', messageInput.value);
+        messageInput.value = '';
     })
 }
 
@@ -32,4 +30,12 @@ function enviarMessage() {
 document.addEventListener('DOMContentLoaded', function () {
     init();
     enviarMessage();
+
+    socket.on('connection', () => {
+        console.log("conectado al servidor");
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Desconectado del servidor');
+    });
 });
